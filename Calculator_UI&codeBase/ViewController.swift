@@ -59,9 +59,6 @@ class ViewController: UIViewController {
         }
     }
 
-
-
-
     // 가로 스택뷰 속성 설정 메서드
     private func setHorizontalStackView(stackview: UIStackView) {
         stackview.axis = .horizontal  // 가로 방향 정렬
@@ -127,11 +124,9 @@ class ViewController: UIViewController {
     // 숫자 버튼 클릭 시 호출되는 메서드
     @objc func clickNum(_ sender: UIButton) {
         guard let clickedButtonText = sender.currentTitle else { return }
-
-        // 현재 텍스트가 "0"일 때 클릭된 버튼의 텍스트로 대체
-        if currentText == "0" {
+        // 현재 텍스트가 "0"일 때 클릭된 버튼이 0이 아닌경우, 0제거 클릭된 버튼 텍스트로 대체
+        if currentText == "0" && clickedButtonText != "0" {
             currentText = clickedButtonText
-        // 그 외의 경우에는 기존 텍스트에 추가
         } else {
             currentText += clickedButtonText
         }
@@ -160,17 +155,36 @@ class ViewController: UIViewController {
 
     // 수식을 계산,  결과를 반환하는 메서드
     func calculate(expression: String) -> Int? {
+        // 입력한 수식이 비어있는 경우
+        guard !expression.isEmpty else {
+            print("수식이 비어있습니다.")
+            return nil
+        }
+        // 연산자를 포함한 수식, 정규 표현식 사용하여 검사
+        let regex = try! NSRegularExpression(pattern: "^[0-9]+([\\+\\-\\*\\/][0-9]+)*$")
+        let range = NSRange(location: 0, length: expression.utf16.count)
+
+        // 정규 표현식에 맞지 않는 경우
+        guard regex.firstMatch(in: expression, options: [], range: range) != nil else {
+            print("잘못된 수식입니다.")
+            return nil
+        }
+
+        // NSExpression을 사용해 계산
         let nsExpression = NSExpression(format: expression)
+
+        // 계산 결과를 반환
         if let result = nsExpression.expressionValue(with: nil, context: nil) as? Int {
-            return result  // 계산 결과를 반환
+            return result
         } else {
             print("잘못된 수식입니다.")  // 잘못된 수식일 경우, 메시지를 출력
             return nil
         }
     }
-
+    
     // 레이블의 텍스트를 업데이트
     func updateLabel() {
         label.text = currentText  // 레이블 현재 텍스트를 설정
     }
 }
+

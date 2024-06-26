@@ -10,7 +10,7 @@ import SnapKit
 
 class ViewController: UIViewController {
 
-    // 화면에 표시될 레이블과 스택뷰들을 선언합니다.
+    // 화면에 표시될 레이블과 스택뷰
     let label = UILabel()
     let stackview1 = UIStackView()
     let stackview2 = UIStackView()
@@ -18,12 +18,12 @@ class ViewController: UIViewController {
     let stackview4 = UIStackView()
     let clcStackVeiw = UIStackView()
 
-    // 현재 표시되고 있는 텍스트를 저장할 변수입니다.
+    // 현재 표시되고 있는 텍스트
     var currentText = "0"
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // 초기 UI 설정 및 스택뷰 생성을 수행합니다.
+        // 초기 UI 설정 및 스택뷰 생성
         configureUI()
         makeHorizontalStackView()
         makeVerticalstackView()

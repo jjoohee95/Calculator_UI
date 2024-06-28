@@ -51,7 +51,12 @@ class ViewController: UIViewController {
     // 가로스택뷰 생성 버튼추가 메서드
     private func makeHorizontalStackView() {
         let stackViews = [stackview1, stackview2, stackview3, stackview4]
-        let buttonTitle = [["7", "8", "9", "+"], ["4", "5", "6", "-"], ["1", "2", "3", "*"], ["AC", "0", "=", "/"]]
+        let row1 = ["7", "8", "9", "+"]
+        let row2 = ["4", "5", "6", "-"]
+        let row3 = ["1", "2", "3", "*"]
+        let row4 = ["AC", "0", "=", "/"]
+
+        let buttonTitle = [row1, row2, row3, row4]
 
         for (index, stackview) in stackViews.enumerated() {
             setHorizontalStackView(stackview: stackview)                           // 가로 스택뷰 속성 설정
@@ -207,5 +212,6 @@ class ViewController: UIViewController {
         }
         return result
     }
-
 }
+
+
